@@ -16,13 +16,30 @@ export default function Stopwatch({ selecionado }: Props) {
       setTempo(horarioEmSegundos(selecionado.tempo));
     }
   }, [selecionado]);
+
+  function regressaTempo(tempo: number = 0) {
+    setTimeout(() => {
+      if (tempo > 0) {
+        tempo -= 1;
+        setTempo(tempo);
+        return regressaTempo(tempo);
+      }
+    }, 1000);
+  }
+
   return (
     <div className={style.cronometro}>
       <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
       <div className={style.relogioWrapper}>
         <Watch tempo={tempo} />
       </div>
-      <Button>Começar</Button>
+      <Button
+        onClick={() => {
+          regressaTempo(tempo);
+        }}
+      >
+        Começar
+      </Button>
     </div>
   );
 }
