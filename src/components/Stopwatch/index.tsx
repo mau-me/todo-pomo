@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 
 interface Props {
   selecionado: ITarefa | undefined;
+  finalizarTarefa: () => void;
 }
 
-export default function Stopwatch({ selecionado }: Props) {
+export default function Stopwatch({ selecionado, finalizarTarefa }: Props) {
   const [tempo, setTempo] = useState<number>();
   useEffect(() => {
     if (selecionado?.tempo) {
@@ -24,6 +25,7 @@ export default function Stopwatch({ selecionado }: Props) {
         setTempo(tempo);
         return regressaTempo(tempo);
       }
+      finalizarTarefa();
     }, 1000);
   }
 
